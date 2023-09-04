@@ -16,6 +16,8 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "image") ?? UIImage.add
+        view.contentMode = .scaleAspectFill
+        view.layer.masksToBounds = true
         
         return view
     }()
