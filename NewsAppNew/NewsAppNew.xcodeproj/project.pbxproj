@@ -22,6 +22,7 @@
 		553EE2AA2AA4AF8300089D97 /* GeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2A92AA4AF8300089D97 /* GeneralCollectionViewCell.swift */; };
 		553EE2AD2AA4BA7700089D97 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2AC2AA4BA7700089D97 /* NewsViewController.swift */; };
 		553EE2B02AA62E4E00089D97 /* DetaileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2AF2AA62E4E00089D97 /* DetaileCollectionViewCell.swift */; };
+		553EE2B22AA63EF800089D97 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2B12AA63EF800089D97 /* ApiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		553EE2A92AA4AF8300089D97 /* GeneralCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCollectionViewCell.swift; sourceTree = "<group>"; };
 		553EE2AC2AA4BA7700089D97 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		553EE2AF2AA62E4E00089D97 /* DetaileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetaileCollectionViewCell.swift; sourceTree = "<group>"; };
+		553EE2B12AA63EF800089D97 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				553EE2722AA4951600089D97 /* Assets.xcassets */,
 				553EE2742AA4951600089D97 /* LaunchScreen.storyboard */,
 				553EE2772AA4951600089D97 /* Info.plist */,
+				553EE2B12AA63EF800089D97 /* ApiManager.swift */,
 			);
 			path = NewsAppNew;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 			files = (
 				553EE29E2AA4A2D200089D97 /* TechnologyViewController.swift in Sources */,
 				553EE29A2AA49E7300089D97 /* TabBarController.swift in Sources */,
+				553EE2B22AA63EF800089D97 /* ApiManager.swift in Sources */,
 				553EE2B02AA62E4E00089D97 /* DetaileCollectionViewCell.swift in Sources */,
 				553EE26E2AA4951500089D97 /* GeneralViewController.swift in Sources */,
 				553EE2A12AA4A97900089D97 /* ViewExtention.swift in Sources */,
