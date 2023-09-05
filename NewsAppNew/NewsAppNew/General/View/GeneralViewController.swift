@@ -33,10 +33,22 @@ class GeneralViewController: UIViewController {
     }()
     
     //MARK: - Properties
+    var viewModel: GeneralViewModelProtocol
 
     //MARK: - LigeCycle
+    //инициализируем нашу viewModel с помощью протокола
+    init(viewModel: GeneralViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        setUpViewModel()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         setUpUI()
     }
@@ -45,6 +57,12 @@ class GeneralViewController: UIViewController {
 
     
     //MARK: - Private Methods
+    private func setUpViewModel() {
+        viewModel.reloadData = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+    
     private func setUpUI() {
         view.backgroundColor = .white
         view.addSubViews(views: [searchBar, collectionView])
@@ -68,12 +86,16 @@ class GeneralViewController: UIViewController {
 extension GeneralViewController: UICollectionViewDataSource {
     //кол-во едениц в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+        viewModel.numberOfCells
     }
     //метод который возвращает нужную нам ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
+        
+        //достаем нужную нам новость
+        let article = viewModel.getArticle(for: indexPath.row)
+        cell.set(article: article)
         
         return cell
     }
