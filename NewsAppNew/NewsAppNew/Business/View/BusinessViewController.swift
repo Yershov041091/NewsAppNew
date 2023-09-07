@@ -90,8 +90,8 @@ extension BusinessViewController: UICollectionViewDataSource {
 extension BusinessViewController: UICollectionViewDelegate {
     //функция делает переход на навый вью контроллер при нажатии
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(NewsViewController(), animated: true)
-        navigationController?.navigationBar.prefersLargeTitles = false
+//        navigationController?.pushViewController(NewsViewController(), animated: true)
+//        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 //Задаем размер ячеек для каждой из секций

@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct NewsResponseObject {
+struct NewsResponseObject: Codable {
     let totalResults: Int
-    let articles: String
+    let articles: [ArticleResponseObject]
+    
+    //это еужно для тогоб что бы декодировать наш JSON file
+    enum CodingKeys: CodingKey {
+        case totalResults
+        case articles
+    }
 }
