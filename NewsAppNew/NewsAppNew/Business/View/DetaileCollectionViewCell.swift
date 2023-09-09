@@ -14,7 +14,7 @@ final class DetaileCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "image") ?? UIImage.add
+        
         view.contentMode = .scaleAspectFill
         view.layer.masksToBounds = true
         
@@ -22,7 +22,7 @@ final class DetaileCollectionViewCell: UICollectionViewCell {
     }()
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.text = "Title text"
+        
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .black
         
@@ -30,7 +30,7 @@ final class DetaileCollectionViewCell: UICollectionViewCell {
     }()
     private lazy var descriptionLabel: UILabel = {
        let label = UILabel()
-        label.text = "It's mainly a convenience endpoint that you can use to keep track of the publishers available on the API, and you can pipe it straight through to your users."
+        
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
         label.numberOfLines = 2
@@ -46,6 +46,20 @@ final class DetaileCollectionViewCell: UICollectionViewCell {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - methods
+    
+    func set(article: ArticleCellViewModel) {
+        titleLabel.text = article.title
+        descriptionLabel.text = article.description
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "image")
+        }
     }
     
     //MARK: - Private methods

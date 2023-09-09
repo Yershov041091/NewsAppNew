@@ -8,13 +8,18 @@
 import Foundation
 
 final class ApiManager {
+    enum Category: String {
+        case business = "business"
+        case general = "general"
+        case technology = "technology"
+    }
     private static let apiKey = "40e158280cbc4512827781fe8247f086"
     private static let baseUrl = "https://newsapi.org/v2/"
     private static let path = "everything"
     
     static func getNews(complition: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
         
-        let stringUrl = baseUrl + path + "?sources=bbc-news&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = baseUrl + path + "?q=bitcoin&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -42,6 +47,8 @@ final class ApiManager {
         if let error = error {
             complition(.failure(NetworkingError.networkingError(error)))
         } else if let data = data {
+            let json = try? JSONSerialization.jsonObject(with: data)
+            print(json ?? "")
             do {
                 let model = try JSONDecoder().decode(NewsResponseObject.self, from: data)
                 complition(.success(model.articles))

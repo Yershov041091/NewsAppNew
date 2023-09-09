@@ -29,6 +29,7 @@
 		553EE2BE2AA7B1AF00089D97 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2BD2AA7B1AF00089D97 /* ApiManager.swift */; };
 		553EE2C12AA7B94F00089D97 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C02AA7B94F00089D97 /* NetworkingError.swift */; };
 		553EE2C32AAA21A300089D97 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C22AAA21A300089D97 /* NewsViewModel.swift */; };
+		553EE2C72AAA290200089D97 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C62AAA290200089D97 /* BusinessViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		553EE2BD2AA7B1AF00089D97 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		553EE2C02AA7B94F00089D97 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		553EE2C22AAA21A300089D97 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		553EE2C62AAA290200089D97 /* BusinessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				553EE2A82AA4AF5F00089D97 /* View */,
+				553EE2C82AAA290600089D97 /* ViewModel */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -257,6 +260,14 @@
 			isa = PBXGroup;
 			children = (
 				553EE2C22AAA21A300089D97 /* NewsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		553EE2C82AAA290600089D97 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				553EE2C62AAA290200089D97 /* BusinessViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -400,6 +411,7 @@
 				553EE29E2AA4A2D200089D97 /* TechnologyViewController.swift in Sources */,
 				553EE29A2AA49E7300089D97 /* TabBarController.swift in Sources */,
 				553EE2B02AA62E4E00089D97 /* DetaileCollectionViewCell.swift in Sources */,
+				553EE2C72AAA290200089D97 /* BusinessViewModel.swift in Sources */,
 				553EE26E2AA4951500089D97 /* GeneralViewController.swift in Sources */,
 				553EE2C12AA7B94F00089D97 /* NetworkingError.swift in Sources */,
 				553EE2A12AA4A97900089D97 /* ViewExtention.swift in Sources */,
