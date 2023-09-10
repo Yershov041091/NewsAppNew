@@ -1,32 +1,32 @@
 //
-//  GeneralViewModel.swift
+//  BusinessViewModel.swift
 //  NewsAppNew
 //
-//  Created by Artem Yershov on 04.09.2023.
+//  Created by Artem Yershov on 07.09.2023.
 //
 
 import Foundation
 
-protocol GeneralViewModelProtocol {
-    //замыкание которое отвечает за перезагрузку стр после получения данных из интернета
+protocol BusinessViewModelProtocol {
     var reloadData: (() -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
     var numberOfCells: Int { get }
     var showError: ((String) -> Void)? { get set }
     
     func getArticle(for row: Int) -> ArticleCellViewModel
+    func loadData()
 }
 
-final class GeneralViewModel: GeneralViewModelProtocol {
+final class BusinessViewModel: BusinessViewModelProtocol {
     
-    //MARK: - Properties
+    
     var reloadData: (() -> Void)?
     var reloadCell: ((Int) -> Void)?
-    var showError: ((String) -> Void)?
     var numberOfCells: Int {
         articles.count
     }
-    //массив который хранит все новости
+    var showError: ((String) -> Void)?
+    
     private var articles: [ArticleCellViewModel] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -35,18 +35,13 @@ final class GeneralViewModel: GeneralViewModelProtocol {
         }
     }
     
-    init() {
-        loadData()
-    }
-    
     func getArticle(for row: Int) -> ArticleCellViewModel {
-        
         return articles[row]
     }
-    
-    private func loadData() {
+  
+     func loadData() {
         
-        ApiManager.getNews(from: .general) { [weak self] result in
+         ApiManager.getNews(from: .business) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
@@ -59,9 +54,6 @@ final class GeneralViewModel: GeneralViewModelProtocol {
                 }
             }
         }
-    }
-    private func convertToCellViewModel(articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
-        return articles.map { ArticleCellViewModel(article: $0) }
     }
     private func loadImage() {
         
@@ -80,9 +72,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
             }
         }
     }
-    private func setUpMockOblect() {
-        articles = [
-            ArticleCellViewModel(article: ArticleResponseObject(title: "News number 1", description: "It's mainly a convenience endpoint that you can u", urlToImage: "...", date: "21.02.2023"))
-        ]
+    private func convertToCellViewModel(articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
+        return articles.map { ArticleCellViewModel(article: $0) }
     }
 }

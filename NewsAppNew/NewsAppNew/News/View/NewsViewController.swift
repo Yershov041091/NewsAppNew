@@ -24,21 +24,21 @@ final class NewsViewController: UIViewController {
     }()
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "image") ?? UIImage.add
         
         return view
     }()
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.text = "Example Text"
+        
+        label.numberOfLines = 3
         label.font = .boldSystemFont(ofSize: 30)
-        label.textAlignment = .center
+        label.textAlignment = .left
         
         return label
     }()
     private lazy var descriptionLabel: UILabel = {
        let label = UILabel()
-        label.text = "However this is part of a system that autogenerates documention, so I can't change the source code. I can put style things in the header of each documention, so I need some sort of LaTeX command that will make all definition list (in LaTeX speak, a) go onto a new line. However this is part of a system that autogenerates documention, so I can't change the source code. I can put style things in the header of each documention, so I need some sort of LaTeX command that will make all definition list (in LaTeX speak, a) go onto a new line. "
+        
         label.numberOfLines = 0
         label.font = .italicSystemFont(ofSize: 15)
         label.textColor = .gray
@@ -56,8 +56,17 @@ final class NewsViewController: UIViewController {
     }()
     
     //MARK: - Properties
+    private let viewModel: NewsViewModelProtocol
     
     //MARK: - LifeCycle
+    init(viewModel: NewsViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +80,17 @@ final class NewsViewController: UIViewController {
         scrolView.addSubview(contentView)
         view.addSubview(scrolView)
         view.backgroundColor = .white
+        
+        titleLabel.text = viewModel.title
+        descriptionLabel.text = viewModel.description
+        dateLabel.text = viewModel.date
+        
+        if let data = viewModel.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "image")
+        }
         
         setUpConstraints()
     }

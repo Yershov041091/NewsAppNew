@@ -30,12 +30,23 @@ class BusinessViewController: UIViewController {
     }()
     
     //MARK: - Properties
+    private var viewModel: BusinessViewModelProtocol
 
     //MARK: - LigeCycle
+    init(viewModel: BusinessViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.setUpViewModel()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpUI()
+        viewModel.loadData()
     }
     
     //MARK: - Methods
@@ -49,6 +60,8 @@ class BusinessViewController: UIViewController {
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         collectionView.register(DetaileCollectionViewCell.self, forCellWithReuseIdentifier: "DetaileCollectionViewCell")
         
+        
+        
         setUpConstraints()
     }
     private func setUpConstraints() {
@@ -59,38 +72,61 @@ class BusinessViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    private func setUpViewModel() {
+        viewModel.reloadData = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        viewModel.reloadCell = { [weak self] row in
+            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+        }
+        viewModel.showError = { error in
+            //TODO: show allert with error
+            print(error)
+        }
+    }
 }
 //MARK: - UICollectionViewDataSource
 extension BusinessViewController: UICollectionViewDataSource {
     //кол-во секций
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        viewModel.numberOfCells > 1 ? 2 : 1
     }
     //кол-во едениц в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        section == 0 ? 1 : 15 // здесь мы прописываем кол-во ячеек в первой и во второй секции
+        if viewModel.numberOfCells > 1 {
+            return section == 0 ? 1 : viewModel.numberOfCells - 1
+        }
+        return viewModel.numberOfCells
     }
     //метод который возвращает нужную нам ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        //инициализируем пустую ячеку
-        var cell: UICollectionViewCell?
-        
         //тут мы определяем в какой секции какую ячейку инициализировать
         if indexPath.section == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
+            
+            let article = viewModel.getArticle(for: 0)
+            cell?.set(article: article)
+            
+            return cell ?? UICollectionViewCell()
+            
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetaileCollectionViewCell", for: indexPath) as? DetaileCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetaileCollectionViewCell", for: indexPath) as? DetaileCollectionViewCell
+            
+            let article = viewModel.getArticle(for: indexPath.row + 1)
+            cell?.set(article: article)
+            
+            return cell ?? UICollectionViewCell()
         }
-        
-        return cell ?? UICollectionViewCell()
     }
 }
 //MARK: - UICollectionViewDelegate
 extension BusinessViewController: UICollectionViewDelegate {
     //функция делает переход на навый вью контроллер при нажатии
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(NewsViewController(), animated: true)
+        
+        let article = viewModel.getArticle(for: indexPath.row == 0 ? 0 : indexPath.row + 1)
+        navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
