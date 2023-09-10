@@ -15,11 +15,12 @@ final class ApiManager {
     }
     private static let apiKey = "40e158280cbc4512827781fe8247f086"
     private static let baseUrl = "https://newsapi.org/v2/"
-    private static let path = "everything"
+    private static let path = "top-headlines"
     
-    static func getNews(complition: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
+    static func getNews(from category: Category,
+                        complition: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
         
-        let stringUrl = baseUrl + path + "?q=bitcoin&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         

@@ -41,7 +41,7 @@ final class BusinessViewModel: BusinessViewModelProtocol {
   
      func loadData() {
         
-         ApiManager.getNews() { [weak self] result in
+         ApiManager.getNews(from: .business) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
