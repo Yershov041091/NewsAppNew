@@ -31,6 +31,7 @@
 		553EE2C32AAA21A300089D97 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C22AAA21A300089D97 /* NewsViewModel.swift */; };
 		553EE2C72AAA290200089D97 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C62AAA290200089D97 /* BusinessViewModel.swift */; };
 		553EE2CD2AADC96300089D97 /* TecnologyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2CC2AADC96300089D97 /* TecnologyViewModel.swift */; };
+		553EE2D02AADD46C00089D97 /* TableCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2CF2AADD46C00089D97 /* TableCollectionViewSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		553EE2C22AAA21A300089D97 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		553EE2C62AAA290200089D97 /* BusinessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 		553EE2CC2AADC96300089D97 /* TecnologyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TecnologyViewModel.swift; sourceTree = "<group>"; };
+		553EE2CF2AADD46C00089D97 /* TableCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCollectionViewSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +240,7 @@
 			children = (
 				553EE2B62AA77E7C00089D97 /* NewsResponseObject.swift */,
 				553EE2B82AA77ED700089D97 /* ArticleResponseObject.swift */,
+				553EE2CF2AADD46C00089D97 /* TableCollectionViewSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				553EE29E2AA4A2D200089D97 /* TechnologyViewController.swift in Sources */,
 				553EE29A2AA49E7300089D97 /* TabBarController.swift in Sources */,
 				553EE2B02AA62E4E00089D97 /* DetaileCollectionViewCell.swift in Sources */,
+				553EE2D02AADD46C00089D97 /* TableCollectionViewSection.swift in Sources */,
 				553EE2C72AAA290200089D97 /* BusinessViewModel.swift in Sources */,
 				553EE26E2AA4951500089D97 /* GeneralViewController.swift in Sources */,
 				553EE2C12AA7B94F00089D97 /* NetworkingError.swift in Sources */,

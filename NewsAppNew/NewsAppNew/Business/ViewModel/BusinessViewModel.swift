@@ -10,33 +10,23 @@ import Foundation
 protocol BusinessViewModelProtocol {
     var reloadData: (() -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
-    var numberOfCells: Int { get }
     var showError: ((String) -> Void)? { get set }
+    var articles: [TableCollectionViewSection] { get }
     
-    func getArticle(for row: Int) -> ArticleCellViewModel
     func loadData()
 }
 
 final class BusinessViewModel: BusinessViewModelProtocol {
-    
-    
     var reloadData: (() -> Void)?
     var reloadCell: ((Int) -> Void)?
-    var numberOfCells: Int {
-        articles.count
-    }
     var showError: ((String) -> Void)?
     
-    private var articles: [ArticleCellViewModel] = [] {
+    private(set) var articles: [TableCollectionViewSection] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.reloadData?()
             }
         }
-    }
-    
-    func getArticle(for row: Int) -> ArticleCellViewModel {
-        return articles[row]
     }
   
      func loadData() {
@@ -46,7 +36,7 @@ final class BusinessViewModel: BusinessViewModelProtocol {
             
             switch result {
             case .success(let articles):
-                self.articles = self.convertToCellViewModel(articles: articles)
+                self.convertToCellViewModel(articles: articles)
                 self.loadImage()
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -56,23 +46,33 @@ final class BusinessViewModel: BusinessViewModelProtocol {
         }
     }
     private func loadImage() {
-        
-        for (index, article) in articles.enumerated() {
-            ApiManager.getImageData(url: article.imageUrl) { [weak self] result in
+        for (i, section) in articles.enumerated() {
+            for (index, item) in section.items.enumerated() {
+                guard let article = item as? ArticleCellViewModel else { return }
                 
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        self?.articles[index].imageData = data
-                        self?.reloadCell?(index)
-                    case .failure(let error):
-                        self?.showError?(error.localizedDescription)
+                ApiManager.getImageData(url: article.imageUrl) { [weak self] result in
+                    
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let data):
+                            if let article = self?.articles[i].items[index] as? ArticleCellViewModel {
+                                article.imageData = data
+                            }
+                            self?.reloadCell?(index)
+                        case .failure(let error):
+                            self?.showError?(error.localizedDescription)
+                        }
                     }
                 }
             }
         }
     }
-    private func convertToCellViewModel(articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
-        return articles.map { ArticleCellViewModel(article: $0) }
+    private func convertToCellViewModel(articles: [ArticleResponseObject]) {
+        var viewModels =  articles.map { ArticleCellViewModel(article: $0) }
+        
+        let firstSection = TableCollectionViewSection(items: [viewModels.removeFirst()])
+        let secondSection = TableCollectionViewSection(items: viewModels)
+        
+        self.articles = [firstSection, secondSection]
     }
 }

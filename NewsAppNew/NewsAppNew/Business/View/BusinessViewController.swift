@@ -89,23 +89,21 @@ class BusinessViewController: UIViewController {
 extension BusinessViewController: UICollectionViewDataSource {
     //кол-во секций
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.numberOfCells > 1 ? 2 : 1
+        viewModel.articles.count
     }
     //кол-во едениц в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.numberOfCells > 1 {
-            return section == 0 ? 1 : viewModel.numberOfCells - 1
-        }
-        return viewModel.numberOfCells
+        viewModel.articles[section].items.count
     }
     //метод который возвращает нужную нам ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
         
         //тут мы определяем в какой секции какую ячейку инициализировать
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
             
-            let article = viewModel.getArticle(for: 0)
             cell?.set(article: article)
             
             return cell ?? UICollectionViewCell()
@@ -113,7 +111,6 @@ extension BusinessViewController: UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetaileCollectionViewCell", for: indexPath) as? DetaileCollectionViewCell
             
-            let article = viewModel.getArticle(for: indexPath.row + 1)
             cell?.set(article: article)
             
             return cell ?? UICollectionViewCell()
@@ -125,7 +122,8 @@ extension BusinessViewController: UICollectionViewDelegate {
     //функция делает переход на навый вью контроллер при нажатии
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let article = viewModel.getArticle(for: indexPath.row == 0 ? 0 : indexPath.row + 1)
+        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
+        
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
