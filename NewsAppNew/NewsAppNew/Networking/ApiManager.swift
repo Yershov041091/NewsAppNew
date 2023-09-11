@@ -18,9 +18,10 @@ final class ApiManager {
     private static let path = "top-headlines"
     
     static func getNews(from category: Category,
+                        page: Int,
                         complition: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
         
-        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         

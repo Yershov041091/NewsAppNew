@@ -40,7 +40,7 @@ final class TecnologyViewModel: TecnologyViewModelProtocol {
   
      func loadData() {
         
-         ApiManager.getNews(from: .technology) { [weak self] result in
+         ApiManager.getNews(from: .technology, page: 1) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

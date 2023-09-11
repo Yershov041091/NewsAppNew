@@ -89,16 +89,16 @@ class BusinessViewController: UIViewController {
 extension BusinessViewController: UICollectionViewDataSource {
     //кол-во секций
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.articles.count
+        viewModel.sections.count
     }
     //кол-во едениц в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.articles[section].items.count
+        viewModel.sections[section].items.count
     }
     //метод который возвращает нужную нам ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
         
         //тут мы определяем в какой секции какую ячейку инициализировать
         if indexPath.section == 0 {
@@ -122,10 +122,16 @@ extension BusinessViewController: UICollectionViewDelegate {
     //функция делает переход на навый вью контроллер при нажатии
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    //эта фун-ция отвечает за загрузку данных как только пользователь практически домотал до конца экрана
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.sections[1].items.count - 15 {
+            viewModel.loadData()
+        }
     }
 }
 //Задаем размер ячеек для каждой из секций
