@@ -33,11 +33,11 @@ class GeneralViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    var viewModel: GeneralViewModelProtocol
+    var viewModel: NewsListViewModelProtocol
 
     //MARK: - LigeCycle
     //инициализируем нашу viewModel с помощью протокола
-    init(viewModel: GeneralViewModelProtocol) {
+    init(viewModel: NewsListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setUpViewModel()
@@ -49,8 +49,8 @@ class GeneralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         setUpUI()
+        viewModel.loadData()
     }
     
     //MARK: - Methods
@@ -91,17 +91,20 @@ class GeneralViewController: UIViewController {
 }
 //MARK: - UICollectionViewDataSource
 extension GeneralViewController: UICollectionViewDataSource {
+    //кол-во секций
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        viewModel.sections.count
+    }
     //кол-во едениц в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.numberOfCells
+        viewModel.sections[section].items.count
     }
     //метод который возвращает нужную нам ячейку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel,
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
         
-        //достаем нужную нам новость
-        let article = viewModel.getArticle(for: indexPath.row)
         cell.set(article: article)
         
         return cell
@@ -112,10 +115,15 @@ extension GeneralViewController: UICollectionViewDelegate {
     //функция делает переход на навый вью контроллер при нажатии
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let article = viewModel.getArticle(for: indexPath.row)
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.sections[indexPath.section].items.count - 15 {
+            viewModel.loadData()
+        }
     }
 }
 

@@ -32,6 +32,7 @@
 		553EE2C72AAA290200089D97 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2C62AAA290200089D97 /* BusinessViewModel.swift */; };
 		553EE2CD2AADC96300089D97 /* TecnologyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2CC2AADC96300089D97 /* TecnologyViewModel.swift */; };
 		553EE2D02AADD46C00089D97 /* TableCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2CF2AADD46C00089D97 /* TableCollectionViewSection.swift */; };
+		553EE2D22AAF6F8B00089D97 /* NewsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE2D12AAF6F8B00089D97 /* NewsListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		553EE2C62AAA290200089D97 /* BusinessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 		553EE2CC2AADC96300089D97 /* TecnologyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TecnologyViewModel.swift; sourceTree = "<group>"; };
 		553EE2CF2AADD46C00089D97 /* TableCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCollectionViewSection.swift; sourceTree = "<group>"; };
+		553EE2D12AAF6F8B00089D97 /* NewsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			children = (
 				553EE2692AA4951500089D97 /* AppDelegate.swift */,
 				553EE2992AA49E7300089D97 /* TabBarController.swift */,
+				553EE2D12AAF6F8B00089D97 /* NewsListViewModel.swift */,
 				553EE2BF2AA7B25C00089D97 /* Networking */,
 				553EE2AE2AA4BA7D00089D97 /* News */,
 				553EE2A52AA4AF4400089D97 /* General */,
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				553EE29E2AA4A2D200089D97 /* TechnologyViewController.swift in Sources */,
+				553EE2D22AAF6F8B00089D97 /* NewsListViewModel.swift in Sources */,
 				553EE29A2AA49E7300089D97 /* TabBarController.swift in Sources */,
 				553EE2B02AA62E4E00089D97 /* DetaileCollectionViewCell.swift in Sources */,
 				553EE2D02AADD46C00089D97 /* TableCollectionViewSection.swift in Sources */,

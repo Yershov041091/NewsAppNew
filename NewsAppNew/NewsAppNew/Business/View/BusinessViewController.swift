@@ -30,10 +30,10 @@ class BusinessViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    private var viewModel: BusinessViewModelProtocol
+    private var viewModel: NewsListViewModelProtocol
 
     //MARK: - LigeCycle
-    init(viewModel: BusinessViewModelProtocol) {
+    init(viewModel: NewsListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.setUpViewModel()
@@ -129,7 +129,7 @@ extension BusinessViewController: UICollectionViewDelegate {
     }
     //эта фун-ция отвечает за загрузку данных как только пользователь практически домотал до конца экрана
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.sections[1].items.count - 15 {
+        if indexPath.row == viewModel.sections[indexPath.section].items.count - 15 {
             viewModel.loadData()
         }
     }
